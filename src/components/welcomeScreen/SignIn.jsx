@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-
-const BACKEND_URL = "http://localhost:8000/api";
+import { BACKEND_URL } from "../../init/session";
 
 const SignIn = () => {
   const [userName, setUserName] = useState("");
@@ -16,7 +15,6 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   const onSignUp = () => {
-    console.log("called from SugnUp - ", userName.length, password)
     if (userName.length <= 0) {
       setIsUsernameError(true);
     } else {
@@ -160,7 +158,7 @@ const SignIn = () => {
                 className="mt-10 md:mt-20 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500"
                 onClick={onSignUp}
               >
-                Sign Up
+                Sign In
               </button>
             </div>
           </div>

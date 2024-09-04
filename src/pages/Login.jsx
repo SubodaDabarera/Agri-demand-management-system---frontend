@@ -17,7 +17,7 @@ const navigation = [
 ];
 
 function Dashboard() {
-  const [clickedItem, setClickedItem] = useState("sign-up");
+  const [clickedItem, setClickedItem] = useState("sign-in");
 
   return (
     <div className="relative h-full bg-emerald-800 overflow-hidden">
@@ -129,25 +129,10 @@ function Dashboard() {
                         Sign In
                       </a>
                     </li>
-                    <li class="mr-2 w-1/3 ">
-                      <a
-                        href="#"
-                        className={classNames(
-                          clickedItem == "sign-up"
-                            ? "border-b border-emerald-300 text-green-700"
-                            : "text-emerald-500 hover:text-green-700",
-                          "inline-block py-2 px-12 md:mt-8"
-                        )}
-                        onClick={() => setClickedItem("sign-up")}
-                      >
-                        Sign Up
-                      </a>
-                    </li>
                   </ul>
                   <hr className="mt-2" />
 
                   {clickedItem == "sign-in" && <SignIn />}
-                  {clickedItem == "sign-up" && <SignUp />}
 
                   <div className="px-4 py-6 md:mt-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10">
                     <p className="text-xs leading-5 text-gray-500">

@@ -1,10 +1,9 @@
 import axios from "axios";
 import React from "react";
-
-const BACKEND_URL = "http://localhost:8000/api";
+import { BACKEND_URL } from "../init/session";
 
 //For login
-const SignIn = async(userName, password) => {
+export const SignIn = async(userName, password) => {
 
     const user = await axios.post(`${BACKEND_URL}/login/login`, { userName, password })
     console.log("user: ", user);
@@ -15,7 +14,7 @@ const SignIn = async(userName, password) => {
 };
 
 //For register
-const SignUp = async (userObj) => {
+export const SignUp = async (userObj) => {
   if (userObj.role != "farmer") {
     await axios.post(`${BACKEND_URL}/${userObj.role}`);
   }
@@ -26,3 +25,5 @@ const SignUp = async (userObj) => {
     await axios.post(`${BACKEND_URL}/farmers`);
   }
 };
+
+
