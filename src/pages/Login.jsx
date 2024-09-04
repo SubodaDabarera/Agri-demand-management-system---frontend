@@ -2,8 +2,8 @@ import { Fragment, useState } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { ChevronRightIcon } from "@heroicons/react/solid";
-import SignIn from "../components/welcomeScreen/SignIn";
 import SignUp from "../components/welcomeScreen/SignUp";
+import SignIn from "../components/welcomeScreen/SignIn";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -17,7 +17,7 @@ const navigation = [
 ];
 
 function Dashboard() {
-  const [clickedItem, setClickedItem] = useState("sign-up");
+  const [clickedItem, setClickedItem] = useState("sign-in");
 
   return (
     <div className="relative h-full bg-emerald-800 overflow-hidden">
@@ -77,7 +77,8 @@ function Dashboard() {
                     </span>
                   </h1>
                   <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                   A system to manage supply and demand of agricultural produce in Sri Lanka
+                    A system to manage supply and demand of agricultural produce
+                    in Sri Lanka
                   </p>
                   <p className="mt-8 text-sm text-white uppercase tracking-wide font-semibold sm:mt-10">
                     Used by
@@ -117,36 +118,21 @@ function Dashboard() {
                         href="#"
                         // class="inline-block py-2 px-12 text-emerald-500 hover:text-green-700"
                         className={classNames(
-                          clickedItem == "sign-up"
+                          clickedItem == "sign-in"
                             ? "border-b border-emerald-300 text-green-700"
                             : "text-emerald-500 hover:text-green-700",
                           "inline-block py-2 px-12 md:mt-8"
                         )}
                         aria-current="page"
-                        onClick={() => setClickedItem("sign-up")}
+                        onClick={() => setClickedItem("sign-in")}
                       >
                         Sign In
                       </a>
                     </li>
-                    {/*<li class="mr-2 w-1/3 ">*/}
-                    {/*  <a*/}
-                    {/*    href="#"*/}
-                    {/*    className={classNames(*/}
-                    {/*      clickedItem == "sign-in"*/}
-                    {/*        ? "border-b border-emerald-300 text-green-700"*/}
-                    {/*        : "text-emerald-500 hover:text-green-700",*/}
-                    {/*      "inline-block py-2 px-12"*/}
-                    {/*    )}*/}
-                    {/*    onClick={() => setClickedItem("sign-in")}*/}
-                    {/*  >*/}
-                    {/*    Sign In*/}
-                    {/*  </a>*/}
-                    {/*</li>*/}
                   </ul>
                   <hr className="mt-2" />
 
-                  {/*{clickedItem == "sign-in" && <SignIn />}*/}
-                  {clickedItem == "sign-up" && <SignUp />}
+                  {clickedItem == "sign-in" && <SignIn />}
 
                   <div className="px-4 py-6 md:mt-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10">
                     <p className="text-xs leading-5 text-gray-500">
