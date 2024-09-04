@@ -2,18 +2,30 @@ import {SearchIcon} from "@heroicons/react/solid";
 import {BellIcon} from "@heroicons/react/outline";
 import {Menu, Transition} from "@headlessui/react";
 import {Fragment} from "react";
+import { handler } from "@tailwindcss/aspect-ratio";
+import { Link } from "react-router-dom";
 
-const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
-]
+
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function AdminHeader() {
+
+    const onLogout = (e) => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("userRole");
+        localStorage.removeItem('clickedItem')
+        window.location.refresh()
+    }
+
+    const userNavigation = [
+        { name: 'Your Profile', href: '#', handler: ()=> {} },
+        { name: 'Settings', href: '#', handler: ()=> {} },
+        { name: 'Sign out', href: '/', handler: onLogout },
+    ]
+
     return(
         <div className="flex-1 px-4 flex justify-between">
             <div className="flex-1 flex">
@@ -52,15 +64,16 @@ export default function AdminHeader() {
                             {userNavigation.map((item) => (
                                 <Menu.Item key={item.name}>
                                     {({ active }) => (
-                                        <a
-                                            href={item.href}
+                                        <Link
+                                            to={item.href}
                                             className={classNames(
                                                 active ? 'bg-gray-100' : '',
                                                 'block px-4 py-2 text-sm text-gray-700'
                                             )}
+                                            onClick={item.handler}
                                         >
                                             {item.name}
-                                        </a>
+                                        </Link>
                                     )}
                                 </Menu.Item>
                             ))}

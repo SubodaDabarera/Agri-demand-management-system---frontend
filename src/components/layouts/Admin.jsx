@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
@@ -34,13 +34,13 @@ import AddAnnouncement from "../../pages/AddAnnouncement";
 import UpdateAnnouncement from "../../pages/UpdateAnnouncement";
 
 const navigation = [
-    { name: 'Dashboard', href: '/admin/dash', icon: HomeIcon, current: true },
-    { name: 'All Farmers', href: '/admin/all-farmers', icon: UsersIcon, current: false },
-    { name: 'All Buyers', href: '/admin/all-buyers', icon: FolderIcon, current: false },
-    { name: 'Seed Requests', href: '/admin/all-seed-requests', icon: ClipboardCheckIcon, current: false },
-    { name: 'Buyer Requests', href: '#', icon: InboxIcon, current: false },
-    { name: 'Announcements', href: '/admin/all-announcements', icon: SpeakerphoneIcon, current: false },
-    { name: 'Add New Crop', href: '/admin/add-crop', icon: PlusCircleIcon, current: false },
+    { name: 'Dashboard', href: '/admin/dash', icon: HomeIcon, current: true, value: 'dashboard' },
+    { name: 'All Farmers', href: '/admin/all-farmers', icon: UsersIcon, current: false, value: 'allFarmers' },
+    { name: 'All Buyers', href: '/admin/all-buyers', icon: FolderIcon, current: false, value: 'allBuyers' },
+    { name: 'Seed Requests', href: '/admin/all-seed-requests', icon: ClipboardCheckIcon, current: false, value: 'seedRequests' },
+    { name: 'Buyer Requests', href: '#', icon: InboxIcon, current: false, value: 'buyerRequests' },
+    { name: 'Announcements', href: '/admin/all-announcements', icon: SpeakerphoneIcon, current: false, value: 'announcements' },
+    { name: 'Add New Crop', href: '/admin/add-crop', icon: PlusCircleIcon, current: false, value: 'addNewCrop' },
 ]
 
 function classNames(...classes) {
@@ -50,6 +50,15 @@ function classNames(...classes) {
 export default function AdminLayout() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    const [isSidebarChanged, setIsSidebarChanged] = useState(false)
+    const [sidebarItem, setSidebarItem] = useState(localStorage.getItem('clickedItem') || 'dashboard')
+
+
+    const handleItemClick = (value) => {
+        localStorage.setItem('clickedItem', value)
+        setIsSidebarChanged(prev => !prev)
+        setSidebarItem(value)
+    }
 
     return (
     <>
@@ -108,23 +117,22 @@ export default function AdminLayout() {
                             <div className="mt-5 flex-1 h-0 overflow-y-auto">
                                 <nav className="px-2 space-y-1">
                                     {navigation.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
+                                        <Link to={item.href} key={item.name} 
                                             className={classNames(
-                                                item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                sidebarItem == item.value ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                 'group flex items-center px-2 py-2 text-base font-medium rounded-md'
                                             )}
+                                            onClick={() => handleItemClick(item.value)}
                                         >
                                             <item.icon
                                                 className={classNames(
-                                                    item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+                                                    sidebarItem == item.value ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
                                                     'mr-4 flex-shrink-0 h-6 w-6'
                                                 )}
                                                 aria-hidden="true"
                                             />
                                             {item.name}
-                                        </a>
+                                            </Link>
                                     ))}
                                 </nav>
                             </div>
@@ -151,23 +159,22 @@ export default function AdminLayout() {
                     <div className="flex-1 flex flex-col overflow-y-auto">
                         <nav className="flex-1 px-2 py-4 space-y-1">
                             {navigation.map((item) => (
-                                <a
-                                    key={item.name}
-                                    href={item.href}
+                                <Link key={item.name} to={item.href}
                                     className={classNames(
-                                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                        sidebarItem == item.value ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                         'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                                     )}
+                                    onClick={() => handleItemClick(item.value)}
                                 >
                                     <item.icon
                                         className={classNames(
-                                            item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
+                                            sidebarItem == item.value ? 'text-gray-300' : 'text-gray-400 group-hover:text-gray-300',
                                             'mr-3 flex-shrink-0 h-6 w-6'
                                         )}
                                         aria-hidden="true"
                                     />
                                     {item.name}
-                                </a>
+                                    </Link>
                             ))}
                         </nav>
                     </div>
