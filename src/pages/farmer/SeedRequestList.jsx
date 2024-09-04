@@ -25,7 +25,7 @@ const SeedRequestList = () => {
   const [isSearchResultExists, setIsSearchResultExists] = useState(false);
   const [filteredRequests, setFilteredRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [deadline, setDeadline] = useState("2022-10-17T16:57:14.503+00:00");
+  const [deadline, setDeadline] = useState("2024-10-17T16:57:14.503+00:00");
   const [isDeadlinePassed, setIsDeadlinePassed] = useState(false);
   const [announcements, setAnnouncements] = useState()
 

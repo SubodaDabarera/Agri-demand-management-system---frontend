@@ -1,7 +1,5 @@
 import axios from "axios";
-
-// const BACKEND_URL = "http://localhost:8000/api/message";
-const BACKEND_URL = "https://agri-demand-management-backend.cyclic.app/api/message";
+import { BACKEND_URL } from "../init/session";
 
 export const createMessage = async ({ recipientId, subject, creatorId, messageBody, status }, setIsSuccess) => {
     try {
